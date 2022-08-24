@@ -32,7 +32,7 @@ public class CommonExecuter implements IExecuter {
 			Class<?> c = Class.forName(packageName);
 			Object obj = c.newInstance();
 			Method method = c.getDeclaredMethod(methodName, String.class);
-			return (String) method.invoke(obj, "Ali");	
+			return (String) method.invoke(obj, "Ali");	//--
 			
 			
 		} catch (ClassNotFoundException e) {
