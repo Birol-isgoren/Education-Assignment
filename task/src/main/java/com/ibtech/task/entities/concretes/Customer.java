@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.ibtech.task.bag.XBag;
+import com.ibtech.task.constants.CustomerBagConstants;
+
 @Entity
 @Table(name="customers")
 public class Customer {
@@ -71,6 +74,12 @@ public class Customer {
 				+ customerSurname + ", customerTckn=" + customerTckn + "]";
 	}
 	
+	public void fromBag(XBag inBag) {
+		this.customerNumber = Integer.valueOf(inBag.get(CustomerBagConstants.CUSTOMER_NUMBER).toString());
+		this.customerName = inBag.get(CustomerBagConstants.CUSTOMER_NAME).toString();
+		this.customerSurname = inBag.get(CustomerBagConstants.CUSTOMER_SURNAME).toString();
+		this.customerTckn = inBag.get(CustomerBagConstants.CUSTOMER_TCKN).toString();
+	}
 	
 
 	

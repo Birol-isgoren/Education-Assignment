@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ibtech.task.bag.XBag;
 import com.ibtech.task.business.abstracts.IAdressService;
 import com.ibtech.task.dataAccess.abstracts.AdressDao;
 import com.ibtech.task.entities.concretes.Adress;
@@ -50,6 +51,13 @@ public class  AdressManager implements IAdressService<Adress>{
 		account = newAccount;
 		this.adressDao.save(account);
 		return "Adres güncellendi " + account.toString();
+	}
+
+
+	@Override
+	public XBag add(XBag entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ibtech.task.bag.XBag;
 import com.ibtech.task.business.abstracts.IAccountService;
 import com.ibtech.task.dataAccess.abstracts.AccountDao;
 import com.ibtech.task.entities.concretes.Account;
@@ -54,6 +55,13 @@ public class  AccountManager implements IAccountService<Account>{
 		account = newAccount;
 		this.accountDao.save(account);
 		return "Hesap güncellendi " + account.toString();
+	}
+
+
+	@Override
+	public XBag add(XBag entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

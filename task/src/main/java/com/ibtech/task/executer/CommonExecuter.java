@@ -6,33 +6,43 @@ import java.lang.reflect.Method;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ibtech.task.bag.XBag;
+import com.ibtech.task.business.abstracts.ICustomerService;
+import com.ibtech.task.constants.ResponseConstants;
 import com.ibtech.task.dataAccess.abstracts.ParameterDao;
+import com.ibtech.task.entities.concretes.Customer;
 import com.ibtech.task.entities.concretes.Parameter;
+
+
 @Service
 public class CommonExecuter implements IExecuter {
 	
 	private ParameterDao parameterDao;
+	private ICustomerService<Customer> customerService;
 	
 	
 	@Autowired
-	public CommonExecuter(ParameterDao parameterDao) {
+	public CommonExecuter(ParameterDao parameterDao, ICustomerService<Customer> customerService) {
 		super();
 		this.parameterDao = parameterDao;
+		this.customerService = customerService;
 	}
 
 
 
 	@Override
-	public String execute(String commandName) { 
-		Parameter parameter = parameterDao.getByCommandName(commandName);
+	public XBag execute(XBag inBag) { 
+		Parameter parameter = parameterDao.getByCommandName(inBag.get("PARAMETER_COMMAND").toString());
 		String packageName = parameter.getPackageName();
 		String methodName = parameter.getMethodName();
+		XBag outBag = new XBag();
 		try {
 			
 			Class<?> c = Class.forName(packageName);
-			Object obj = c.newInstance();
-			Method method = c.getDeclaredMethod(methodName, String.class);
-			return (String) method.invoke(obj, "Ali");	//--
+			Object obj = customerService;
+			Method method = c.getDeclaredMethod(methodName, XBag.class);
+			outBag = (XBag) method.invoke(obj, inBag);
+			return outBag;
 			
 			
 		} catch (ClassNotFoundException e) {
@@ -54,11 +64,10 @@ public class CommonExecuter implements IExecuter {
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return "hatalı bitti";
+		outBag.put(ResponseConstants.IS_SUCCESSFUL, false);
+		outBag.put(ResponseConstants.RETURN_MESSAGE, "Teknik bir hata oluştu.");
+		return outBag;
 	}
 
 }
