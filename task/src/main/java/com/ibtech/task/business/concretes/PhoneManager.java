@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ibtech.task.bag.XBag;
 import com.ibtech.task.business.abstracts.IPhoneService;
 import com.ibtech.task.dataAccess.abstracts.PhoneDao;
 import com.ibtech.task.entities.concretes.Phone;
@@ -50,6 +51,13 @@ public class  PhoneManager implements IPhoneService<Phone>{
 		phone = newPhone;
 		this.phoneDao.save(phone);
 		return "Telefon güncellendi " + phone.toString();
+	}
+
+
+	@Override
+	public XBag add(XBag entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

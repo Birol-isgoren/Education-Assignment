@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ibtech.task.bag.XBag;
 import com.ibtech.task.business.abstracts.ICustomerService;
+import com.ibtech.task.constants.ResponseConstants;
 import com.ibtech.task.dataAccess.abstracts.CustomerDao;
 import com.ibtech.task.entities.concretes.Customer;
 
@@ -33,6 +35,22 @@ public class  CustomerManager implements ICustomerService<Customer>{
 		this.customerDao.save(customer);
 		return "Müşteri eklendi " + customer.toString();
 	}
+	
+	@Override
+	public XBag add(XBag entity) {
+		
+		Customer customer = new Customer();
+		customer.fromBag(entity);
+		
+		this.customerDao.save(customer);
+		
+		XBag outBag = new XBag();
+		String responseMessage = "Müşteri eklendi " + customer.toString();
+		outBag.put(ResponseConstants.IS_SUCCESSFUL, true);
+		outBag.put(ResponseConstants.RETURN_MESSAGE, responseMessage);
+		
+		return outBag;
+	}
 
 
 	@Override
@@ -51,5 +69,8 @@ public class  CustomerManager implements ICustomerService<Customer>{
 		this.customerDao.save(customer);
 		return "Müşteri güncellendi " + customer.toString();
 	}
+
+
+
 
 }

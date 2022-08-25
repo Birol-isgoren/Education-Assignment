@@ -1,6 +1,10 @@
 package com.ibtech.task.executer;
 
+
+import com.ibtech.task.bag.XBag;
+
 public interface IExecuter {
-	String execute(String commandName); 
+	XBag execute(XBag inBag); 
+
 
 }

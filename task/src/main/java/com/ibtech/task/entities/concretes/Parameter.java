@@ -18,6 +18,7 @@ public class Parameter {
 	@Column(name="method_name")
 	private String methodName;
 	
+
 	public Parameter() {
 		
 	}
@@ -52,8 +53,6 @@ public class Parameter {
 	public void setMethodName(String methodName) {
 		this.methodName = methodName;
 	}
-
-	
 
 	
 }
