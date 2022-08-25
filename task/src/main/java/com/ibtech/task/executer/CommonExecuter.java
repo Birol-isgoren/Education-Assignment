@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.ibtech.task.bag.XBag;
 import com.ibtech.task.business.abstracts.ICustomerService;
 import com.ibtech.task.constants.ResponseConstants;
@@ -14,10 +15,12 @@ import com.ibtech.task.entities.concretes.Customer;
 import com.ibtech.task.entities.concretes.Parameter;
 
 
+
 @Service
 public class CommonExecuter implements IExecuter {
 	
 	private ParameterDao parameterDao;
+
 	private ICustomerService<Customer> customerService;
 	
 	
@@ -26,11 +29,13 @@ public class CommonExecuter implements IExecuter {
 		super();
 		this.parameterDao = parameterDao;
 		this.customerService = customerService;
+
 	}
 
 
 
 	@Override
+
 	public XBag execute(XBag inBag) { 
 		Parameter parameter = parameterDao.getByCommandName(inBag.get("PARAMETER_COMMAND").toString());
 		String packageName = parameter.getPackageName();
@@ -43,6 +48,7 @@ public class CommonExecuter implements IExecuter {
 			Method method = c.getDeclaredMethod(methodName, XBag.class);
 			outBag = (XBag) method.invoke(obj, inBag);
 			return outBag;
+
 			
 			
 		} catch (ClassNotFoundException e) {
@@ -64,10 +70,12 @@ public class CommonExecuter implements IExecuter {
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
 		}
 		outBag.put(ResponseConstants.IS_SUCCESSFUL, false);
 		outBag.put(ResponseConstants.RETURN_MESSAGE, "Teknik bir hata oluştu.");
 		return outBag;
+
 	}
 
 }
