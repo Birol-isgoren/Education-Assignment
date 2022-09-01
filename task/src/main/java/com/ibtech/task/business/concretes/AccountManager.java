@@ -31,8 +31,7 @@ public class  AccountManager implements IAccountService<Account>{
 
 	@Override
 	public String add(Account account) {
-		String iban = String.format("%s%s%s",account.getBranch(),account.getCurrencyCode(),account.getAccountNumber());
-		account.setIban(iban);
+		
 		this.accountDao.save(account);
 		return "Hesap eklendi " + account.toString();
 	}
@@ -50,8 +49,7 @@ public class  AccountManager implements IAccountService<Account>{
 	@Override
 	public String update(Account newAccount) {
 		Account account = this.accountDao.getByCustomerNumber(newAccount.getCustomerNumber());
-		String iban = String.format("%s%s%s",newAccount.getBranch(),newAccount.getCurrencyCode(),newAccount.getAccountNumber());
-		newAccount.setIban(iban);
+		
 		account = newAccount;
 		this.accountDao.save(account);
 		return "Hesap güncellendi " + account.toString();
@@ -62,6 +60,14 @@ public class  AccountManager implements IAccountService<Account>{
 	public XBag add(XBag entity) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void changeAmount(int amount) {
+		Account account = this.accountDao.getByCustomerNumber(1);
+		account.setAmount(account.getAmount() + amount);
+		this.accountDao.save(account);
 	}
 
 }

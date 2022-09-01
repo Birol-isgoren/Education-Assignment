@@ -15,4 +15,6 @@ public interface ICrudService<T> {
 	String delete(int id);
 
 	String update(T entity);
+	
+
 }
